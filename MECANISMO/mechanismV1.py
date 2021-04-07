@@ -31,13 +31,15 @@ def moveOneStep(motor):
                 for i in range(inputPasos):               
                     time.sleep(0.1)
                     arduino.write(b'4')
-                    menu()
+                    
+                menu()
             elif inputDireccion.upper() == "A":
                 print("<")
                 for i in range(inputPasos):                
                     time.sleep(0.1)
                     arduino.write(b'5')
-                    menu()
+                    
+                menu()
 
             elif inputDireccion.upper() == "S":
                 print("FINALIZADO")
@@ -55,13 +57,13 @@ def moveOneStep(motor):
                 for i in range(inputPasos):               
                     time.sleep(0.1)
                     arduino.write(b'8')
-                    menu()
+                menu()
             elif inputDireccion.upper() == "A":
                 print("<")
                 for i in range(inputPasos):                
                     time.sleep(0.1)
                     arduino.write(b'9')
-                    menu()
+                menu()
 
             elif inputDireccion.upper() == "S":
                 print("FINALIZADO")
