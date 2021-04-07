@@ -17,16 +17,16 @@ void loop() {
   if(Serial.available() >0){
     entryByte = Serial.read();
 
-    //MOVER ALA DERECHA 1 PASO
-    if(entryByte == 'D'){
+    //MOVER SENTIDO HORARIO
+    if(entryByte == 'H'){
       digitalWrite(DIR_MT1, HIGH);    // giro en un sentido
       digitalWrite(STEP_MT1, HIGH);       // nivel alto
       delay(10);  
       digitalWrite(STEP_MT1, LOW);       // nivel alto
       delay(10);        
     }
-    //MOVER ALA IZQUIERDA UN PASO
-    if(entryByte == 'I'){
+    //MOVER ANTIHORARIO
+    if(entryByte == 'A'){
       digitalWrite(DIR_MT1, LOW);    // giro en SENTIDO OPUESTO
       digitalWrite(STEP_MT1, HIGH);       // nivel alto
       delay(10);  
