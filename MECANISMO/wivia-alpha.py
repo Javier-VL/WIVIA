@@ -144,9 +144,8 @@ def getFreq(conn,addr,timeout):#esta funcion toma alrededor de 3milisegundos
     print("--- %s seconds ---" % (time.time() - time_start))
     rgb = getRGBfromlist(pixel_list)
     print(f"VALOR EN RGB {rgb}")
-    print("---------------------")
-
     writeArgbFile(rgb)
+    print("---------------------")
 
 def writeArgbFile(rgb):
     with open(ruta,'a+') as f:#SOLO ESTA ABIERTO DENTRO DE LA FUNCION
@@ -155,28 +154,19 @@ def writeArgbFile(rgb):
         f.write('%s,' %rgb[1])
         f.write('%s' %rgb[2])
         f.write('\n')
-            
-    
 
-
-start_time = time.time()
-
-
-my_file = Path(ruta)
-if my_file.is_file():
-    #with open(ruta,'a+') as f:#SOLO ESTA ABIERTO DENTRO DE LA FUNCION
-    #   f.write("255,255\n")
-    pass
-else:
-    with open(ruta,'w') as f:#escribiendo las dimensiones
-        f.write("50\n")
-        f.write("50\n")
 
 def escaneo(horPXL,verPXL):
     for filasV in range (1,verPXL):
         for columH in range (1,horPXL):
-            print(f"[{filasV},{columH}]",end='')
-    print("\n")
+            getFreq(sock,ADDRESS,TIMEOUT)
+            motorSuperior(1,"A")
+        for columH in range (1,horPXL):
+            #regresar a la posicion original
+            motorSuperior(1,"H")
+            time.sleep(0.3)
+        getFreq(sock,ADDRESS,TIMEOUT)
+        motorInferior(1,"A")     
 
 
 
@@ -199,6 +189,7 @@ def menu():
         elif(opcion == 2):
             horizontal = int(input("Dimension Horizontal: "))
             vertical = int(input("Dimension Vertical: "))
+            createfile(horizontal,vertical)
             pass
         elif(opcion == 3):
             pass              
@@ -206,6 +197,19 @@ def menu():
             break
         else:
             print("INVALID OPTION")
+
+def createfile(horPXL,verPXL):
+    my_file = Path(ruta)
+    if my_file.is_file():
+        pass
+    else:
+        with open(ruta,'w') as f:#escribiendo las dimensiones
+            f.write("%d\n"%horPXL)
+            f.write("%d\n"%verPXL)
+
+
+start_time = time.time()
+
 
 try:
     # Define the serial port and baud rate.
@@ -216,19 +220,15 @@ try:
 except:
     print("ERROR NO ARDUINO DETECTADO")
 
-for x in range(0,5,1):
-    getFreq(sock,ADDRESS,TIMEOUT)
-    pass
-
-#getFreq(sock,ADDRESS,TIMEOUT)
 
 print("finalizo...")
 print("--- %s seconds ---" % (time.time() - start_time))
 print(len(pixel_list))
 
+"""
+for x in range(0,5,1):
+    getFreq(sock,ADDRESS,TIMEOUT)
+    pass
 
-
-#TOMAR LOS PASOS
-
-
-#ESCRIBIR EL ARCHIVO
+#getFreq(sock,ADDRESS,TIMEOUT)
+"""

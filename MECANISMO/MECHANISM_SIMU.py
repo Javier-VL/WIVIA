@@ -1,4 +1,4 @@
-from MECANISMO.mechanismV1.UDP_and_PIXELVALUE import TIMEOUT
+
 import serial
 import time
 import platform
