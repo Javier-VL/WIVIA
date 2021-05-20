@@ -23,7 +23,7 @@ def moveOneStep(motor):
     inputDireccion = input("\n Horario o Antihorario: H/A ")
     inputPasos = int(input("Cantidad de pasos: "))
 
-    if(motor == 1):
+    if(motor == 1):#superior
         #MOTOR1
         if(inputPasos >= 1):
             if inputDireccion.upper() == "H":
@@ -50,7 +50,7 @@ def moveOneStep(motor):
         else:
             print("CANTIDAD DE PASOS INVALIDA")
         
-    elif(motor ==2):
+    elif(motor ==2):#inferior
         if(inputPasos >= 1):
             if inputDireccion.upper() == "H":
                 print(">")

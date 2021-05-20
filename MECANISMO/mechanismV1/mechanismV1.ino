@@ -22,7 +22,7 @@ void loop() {
   if(Serial.available() >0){
     entryByte = Serial.read();
 
-    //MOTOR 1-------------------------------------------
+    //MOTOR 1 SUPERIOR-------------------------------------------
     //MOVER SENTIDO HORARIO
     if(entryByte == '4'){
       digitalWrite(DIR_MT1, HIGH);    // giro en un sentido
@@ -40,7 +40,7 @@ void loop() {
       delay(10);
      }
      //------------------------------------------------
-     //MOTOR 2------------------------------------------- 
+     //MOTOR 2 INFERIOR------------------------------------------- 
     if(entryByte == '8'){
       digitalWrite(DIR_MT2, HIGH);    // giro en un sentido
       digitalWrite(STEP_MT2, HIGH);       // nivel alto
