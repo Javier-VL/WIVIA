@@ -34,11 +34,18 @@ def menuInf():
 
 def menu():
     while True:
-        print("1 |COMENZAR ESCANEO 10X10")
+        print("1 |RUTINA DE PRUEBA")
         print("2 |MOVER MOTOR SUPERIOR")
         print("3 |MOVER MOTOR INFERIOR")
         opcion = int(input("Selecciona: "))
         if(opcion == 1):
+            for x in range(20):
+                time.sleep(0.5)
+                motorSuperior(1,"A")
+            for x in range(20):
+                time.sleep(0.5)
+                motorInferior(1,"H")
+                
             pass
             
         elif(opcion == 2):
@@ -78,12 +85,12 @@ def motorInferior(inputPasos,inputDireccion):
             print(">")
             for i in range(inputPasos):               
                 time.sleep(0.1)
-                arduino.write(b'4')
+                arduino.write(b'8')
         elif inputDireccion.upper() == "A":
             print("<")
             for i in range(inputPasos):                
                 time.sleep(0.1)
-                arduino.write(b'5')
+                arduino.write(b'9')
         elif inputDireccion.upper() == "S":
             #print("FINALIZADO")
             arduino.close()  # CERRANDO PUERTO
