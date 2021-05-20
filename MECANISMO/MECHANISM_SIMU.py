@@ -1,3 +1,4 @@
+from MECANISMO.mechanismV1.UDP_and_PIXELVALUE import TIMEOUT
 import serial
 import time
 import platform
@@ -32,11 +33,27 @@ def menuInf():
             print("INVALID OPTION")
 
 
+def escaneo(horPXL,verPXL):
+    for filasV in range (1,verPXL):
+        for columH in range (1,horPXL):
+            motorSuperior(1,"A")
+            time.sleep(0.3)
+        for columH in range (1,horPXL):
+            #regresar a la posicion original
+            motorSuperior(1,"A")
+            time.sleep(0.3)
+        motorInferior(1,"A")
+        time.sleep(0.3)
+
+    
+    print("\n")
+
 def menu():
     while True:
         print("1 |RUTINA DE PRUEBA")
         print("2 |MOVER MOTOR SUPERIOR")
         print("3 |MOVER MOTOR INFERIOR")
+        print("4 |ESCANEO")
         opcion = int(input("Selecciona: "))
         if(opcion == 1):
             for x in range(20):
@@ -51,7 +68,11 @@ def menu():
         elif(opcion == 2):
             menuSup()
         elif(opcion == 3):
-            menuInf()               
+            menuInf()
+        elif(opcion == 4):
+            horizontal = int(input("Dimension Horizontal: "))
+            vertical = int(input("Dimension Vertical: "))
+            escaneo(horizontal,vertical)               
         elif(opcion == 0):
             break
         else:

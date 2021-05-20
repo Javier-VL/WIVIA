@@ -1,5 +1,7 @@
 #RECIBIR LA SEÑAL
-
+#FILA==VERTICAL>
+#COLUMNA==HORIZONTAL^
+import serial
 import time
 import socket
 import threading
@@ -12,6 +14,51 @@ import numpy as np
 print("\nTRABAJANDO CON PYTHON: ", platform.python_version())
 
 #__________________________________________________________________________________
+def motorSuperior(inputPasos,inputDireccion):
+    if(inputPasos >= 1):
+        if inputDireccion.upper() == "H":
+            #print(">")
+            for i in range(inputPasos):               
+                time.sleep(0.1)
+                arduino.write(b'4')              
+        elif inputDireccion.upper() == "A":
+            #print("<")
+            for i in range(inputPasos):                
+                time.sleep(0.1)
+                arduino.write(b'5')
+        elif inputDireccion.upper() == "S":
+            #print("FINALIZADO")
+            arduino.close()  # CERRANDO PUERTO
+        else:
+            print("WRONG")
+            #menu()
+    else:
+        print("CANTIDAD DE PASOS INVALIDA")
+
+def motorInferior(inputPasos,inputDireccion):
+    if(inputPasos >= 1):
+        if inputDireccion.upper() == "H":
+            #print(">")
+            for i in range(inputPasos):               
+                time.sleep(0.1)
+                arduino.write(b'8')
+        elif inputDireccion.upper() == "A":
+            #print("<")
+            for i in range(inputPasos):                
+                time.sleep(0.1)
+                arduino.write(b'9')
+        elif inputDireccion.upper() == "S":
+            #print("FINALIZADO")
+            arduino.close()  # CERRANDO PUERTO
+        else:
+            print("WRONG")
+            #menu()
+    else:
+        print("CANTIDAD DE PASOS INVALIDA")
+
+
+#__________________________________________________________________________________
+#FILE HANDLER
 
 directorio = "f"
 directorio_padre ="C:/Users/Javier/Documents/INCO\MODULAR/MECANISMO/CODIGO/WIVIA/FILES/"
@@ -122,9 +169,52 @@ if my_file.is_file():
     pass
 else:
     with open(ruta,'w') as f:#escribiendo las dimensiones
-        f.write("720\n")
-        f.write("480\n")
+        f.write("50\n")
+        f.write("50\n")
 
+def escaneo(horPXL,verPXL):
+    for filasV in range (1,verPXL):
+        for columH in range (1,horPXL):
+            print(f"[{filasV},{columH}]",end='')
+    print("\n")
+
+
+
+
+def menu():
+    while True:
+        print("1 |RUTINA DE PRUEBA")
+        print("2 |Escaneo")
+        #print("3 |MOVER MOTOR INFERIOR")
+        opcion = int(input("Selecciona: "))
+        if(opcion == 1):
+            for x in range(40):
+                time.sleep(0.5)
+                motorSuperior(1,"A")
+            for x in range(30):
+                time.sleep(0.5)
+                motorInferior(1,"H")
+                
+            pass            
+        elif(opcion == 2):
+            horizontal = int(input("Dimension Horizontal: "))
+            vertical = int(input("Dimension Vertical: "))
+            pass
+        elif(opcion == 3):
+            pass              
+        elif(opcion == 0):
+            break
+        else:
+            print("INVALID OPTION")
+
+try:
+    # Define the serial port and baud rate.
+    arduino = serial.Serial('COM3', 9600)
+    time.sleep(2)  # wait for the serial connection to initialize
+    print("CONEXION AL ARDUINO EXITOSA")
+    menu()
+except:
+    print("ERROR NO ARDUINO DETECTADO")
 
 for x in range(0,5,1):
     getFreq(sock,ADDRESS,TIMEOUT)
